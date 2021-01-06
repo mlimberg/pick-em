@@ -4,25 +4,24 @@ import {
   Route,
 } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
-import SignIn from '../pages/SignIn'
 import Header from './Header'
 import Box from './Box'
+import Home from '../pages/Home'
+import NewPickem from '../pages/NewPickem'
 import { AuthProvider } from '../context/AuthContext'
 import theme from '../styles/theme'
 
 const RouterComponent = () => (
   <Router>
-    <>
       <Header />
       <Switch>
         <Route path="/" exact>
-          <div>hi</div>
+          <Home />
         </Route>
-        <Route path="/sign-in" >
-          <SignIn />
+        <Route path="/new-pickem">
+          <NewPickem />
         </Route>
       </Switch>
-    </>
   </Router>
 )
 
@@ -31,6 +30,8 @@ const Container = styled(Box)`
 `
 
 function App() {
+
+
   return (
     <ThemeProvider theme={theme}>
       <Container>

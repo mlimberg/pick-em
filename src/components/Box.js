@@ -14,6 +14,7 @@ const Box = styled("div")`
   border-bottom: ${props => props.borderBottom};
   border-left: ${props => props.borderLeft};
   border-color: ${props => props.theme.colors[props.borderColor]};
+  border-radius: ${props => props.borderRadius};
   color: ${props => props.theme.colors[props.color]};
   background: ${props => props.background};
   position: ${props => props.position};
