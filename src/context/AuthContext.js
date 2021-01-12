@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from 'react'
 import ls from 'local-storage'
+import { storageKey } from '../utils/signInOut'
 
 const AuthContext = createContext({ user: null })
 
@@ -8,7 +9,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     if (!user) {
-      const userData = ls.get('pickem')
+      const userData = ls.get(storageKey)
 
       if (userData && userData.id) {
         setUser(userData)

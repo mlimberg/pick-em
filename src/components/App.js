@@ -1,3 +1,4 @@
+import '../styles/reset.css'
 import {
   BrowserRouter as Router,
   Switch,
@@ -7,9 +8,12 @@ import styled, { ThemeProvider } from 'styled-components'
 import Header from './Header'
 import Box from './Box'
 import Home from '../pages/Home'
-import NewPickem from '../pages/NewPickem'
+import NewPool from '../pages/NewPool'
+import MyPools from '../pages/MyPools'
 import { AuthProvider } from '../context/AuthContext'
 import theme from '../styles/theme'
+import GlobalStyles from '../styles/GlobalStyles'
+
 
 const RouterComponent = () => (
   <Router>
@@ -18,8 +22,11 @@ const RouterComponent = () => (
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/new-pickem">
-          <NewPickem />
+        <Route path="/new-pool">
+          <NewPool />
+        </Route>
+        <Route path="/:id/my-pools">
+          <MyPools />
         </Route>
       </Switch>
   </Router>
@@ -36,6 +43,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Container>
         <AuthProvider>
+          <GlobalStyles />
           <RouterComponent />
         </AuthProvider>
       </Container>

@@ -71,9 +71,14 @@ const Header = () => {
           <Logo />
         </Nav>
         {user && (
-          <Nav to="/new-pickem">
-            New Pool
-          </Nav>
+          <Flex>
+            <Nav to={`/${user.id}/my-pools`}>
+              My Pools
+            </Nav>
+            <Nav to="/new-pool">
+              New Pool
+            </Nav>
+          </Flex>
         )}
       </Flex>
       <Flex

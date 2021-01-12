@@ -1,5 +1,14 @@
-import Box from './Box'
+import styled from 'styled-components'
+import Flex from './Flex'
 
-const PageWrapper = () => {
-  
-}
+const Wrapper = styled(Flex)`
+  padding: 16px;
+`
+
+const PageWrapper = ({ children }) => (
+  <Wrapper>
+    {children}
+  </Wrapper>
+)
+
+export default PageWrapper

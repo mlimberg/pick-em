@@ -1,6 +1,8 @@
 import firebase from 'firebase'
 import ls from 'local-storage'
 
+export const storageKey = 'pickem-user'
+
 export const signIn = ({ onComplete, onError }) => {
   const provider = new firebase.auth.GoogleAuthProvider()
 
@@ -20,7 +22,7 @@ export const signIn = ({ onComplete, onError }) => {
 
         onComplete(userData)
 
-        ls.set('pickem', userData)
+        ls.set(storageKey, userData)
       }
     }).catch((error) => {
       if (error && error.message) {
@@ -31,7 +33,7 @@ export const signIn = ({ onComplete, onError }) => {
 
 export const signOut = ({ onComplete }) => {
   firebase.auth().signOut().then((res) => {
-    ls.remove('pickem')
+    ls.remove(storageKey)
     onComplete()
   }).catch((error) => {
     alert('WAT?!')
