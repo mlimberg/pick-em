@@ -1,43 +1,58 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { margin } from '../styles/sharedStyles'
 
-const StyledInput = styled.input`
+
+export const sharedInputStyles = css`
   outline: none;
   border-radius: 6px;
-  border: 1px solid;
-  border-color: ${props => props.theme.colors.dolphinsBlue};
-  height: 30px;
+  border: ${props => props.error ? '2px solid' : '1px solid'};
+  border-color: ${props => (
+    props.error
+      ? props.theme.colors.error
+      : props.theme.colors.dolphinsBlue
+  )};
   width: ${props => props.width || '300px'};
   font-size: 20px;
-  margin-top: 8px;
-  font-weight: 100;
   font-family: ${props => props.theme.fonts.thin};
-  padding: 2px;
-  padding-left: 4px;
+  padding: 4px 8px;
+  font-weight: 300;
+
+  ::placeholder {
+    color: #8c8c8c8c;
+  }
+`
+
+const StyledInput = styled.input`
+  ${sharedInputStyles}
+  height: 30px;
+  margin-top: ${props => props.label ? '8px' : '0'};
 `
 
 const StyledLabel = styled.label`
   font-size: 20px;
   display: flex;
   flex-direction: ${props => props.flexDirection};
-  margin: ${props => props.margin || props.m};
-  margin-left: ${props => props.ml || props.marginLeft || props.mx};
-  margin-top: ${props => props.mt || props.marginTop || props.my};
-  margin-right: ${props => props.mr || props.marginRight || props.mx};
-  margin-bottom: ${props => props.mb || props.marginBottom || props.my};
+  ${margin}
 `
 
 const Input = ({
   label,
   placeholder,
   flexDirection = 'column',
+  handleChange,
+  error,
+  modifyText,
   ...rest
 }) => {
   const [value, setValue] = useState('')
   const [isFocused, setFocus] = useState(false)
 
-  const handleChange = (e) => {
-    setValue(e.target.value)
+  const handleChangeInternal = (e) => {
+    const { value } = e?.target
+    setValue(modifyText ? modifyText(value) : value)
+
+    if (handleChange) handleChange(value)
   }
 
   return (
@@ -48,11 +63,13 @@ const Input = ({
       {label}
       <StyledInput
         placeholder={placeholder}
-        onChange={handleChange}
+        onChange={handleChangeInternal}
         onFocus={() => setFocus(true)}
         onBlur={() => setFocus(false)}
         value={value}
         active={isFocused}
+        label={!!label}
+        error={error}
       />
     </StyledLabel>
 

@@ -1,6 +1,10 @@
-import styled from "styled-components";
+import styled from "styled-components"
+import { margin, padding, absolutePositions } from '../styles/sharedStyles'
 
 const Box = styled("div")`
+  ${margin}
+  ${padding}
+  ${absolutePositions}
   display: ${props => props.display || "block"};
   width: ${props => props.width};
   height: ${props => props.height};
@@ -18,21 +22,8 @@ const Box = styled("div")`
   color: ${props => props.theme.colors[props.color]};
   background: ${props => props.background};
   position: ${props => props.position};
-  top: ${props => props.top};
-  bottom: ${props => props.bottom};
-  left: ${props => props.left};
-  right: ${props => props.right};
+
   background-color: ${props => props.theme.colors[props.backgroundColor]};
-  margin: ${props => props.margin || props.m};
-  margin-left: ${props => props.ml || props.marginLeft || props.mx};
-  margin-top: ${props => props.mt || props.marginTop || props.my};
-  margin-right: ${props => props.mr || props.marginRight || props.mx};
-  margin-bottom: ${props => props.mb || props.marginBottom || props.my};
-  padding: ${props => props.padding || props.p};
-  padding-left: ${props => props.pl || props.paddingLeft || props.px};
-  padding-top: ${props => props.pt || props.paddingTop || props.py};
-  padding-right: ${props => props.pr || props.paddingRight || props.px};
-  padding-bottom: ${props => props.pb || props.paddingBottom || props.py};
 `;
 
 export default Box;

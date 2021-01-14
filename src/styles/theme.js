@@ -7,6 +7,7 @@ const theme = {
     tertiary: '#e7717d',
     brown: '#7e685a',
     gray: '#c2b9b0',
+    error: '#e83b46',
     darkGray: '#5d5c61',
     mediumGray: '#757575',
     dolphinsTeal: '#00838D',
@@ -17,6 +18,7 @@ const theme = {
   },
   fonts: {
     thin: 'Roboto Thin, sans-serif',
+    thinItalic: 'Roboto Thin Italic, sans-serif',
     regular: 'Roboto Regular, sans-serif',
     bold: 'Roboto Bold, sans-serif',
   }

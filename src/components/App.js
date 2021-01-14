@@ -10,25 +10,28 @@ import Box from './Box'
 import Home from '../pages/Home'
 import NewPool from '../pages/NewPool'
 import MyPools from '../pages/MyPools'
+import Teams from '../pages/Teams'
 import { AuthProvider } from '../context/AuthContext'
 import theme from '../styles/theme'
 import GlobalStyles from '../styles/GlobalStyles'
 
-
 const RouterComponent = () => (
   <Router>
-      <Header />
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/new-pool">
-          <NewPool />
-        </Route>
-        <Route path="/:id/my-pools">
-          <MyPools />
-        </Route>
-      </Switch>
+    <Header />
+    <Switch>
+      <Route path="/" exact>
+        <Home />
+      </Route>
+      <Route path="/new-pool">
+        <NewPool />
+      </Route>
+      <Route path="/:id/my-pools">
+        <MyPools />
+      </Route>
+      <Route path="/teams">
+        <Teams />
+      </Route>
+    </Switch>
   </Router>
 )
 
@@ -38,16 +41,15 @@ const Container = styled(Box)`
 
 function App() {
 
-
   return (
-    <ThemeProvider theme={theme}>
-      <Container>
-        <AuthProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <Container>
           <GlobalStyles />
           <RouterComponent />
-        </AuthProvider>
-      </Container>
-    </ThemeProvider>
+        </Container>
+      </ThemeProvider>
+    </AuthProvider>
   )
 }
 
