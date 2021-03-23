@@ -11,12 +11,12 @@ const spin = keyframes`
 `
 
 const Loader = styled.div`
-  border: 6px solid ${props => props.theme.colors.gray};
-  border-top: 6px solid ${props => props.theme.colors.primary};
+  border: 6px solid ${p => p.theme.colors.gray};
+  border-top: 6px solid ${p => p.theme.colors.primary};
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: ${spin} 2s linear infinite;
+  width: ${p => p.size || '20px'};
+  height: ${p => p.size || '20px'};
+  animation: ${spin} 1s ease-in infinite;
 `
 
 export default Loader

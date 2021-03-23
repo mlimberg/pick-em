@@ -11,13 +11,12 @@ const StyledTextArea = styled('textarea')`
 
 const TextArea = ({ handleChange, ...rest }) => {
   const [value, setValue] = useState('')
-  const handleChangeInternal = (e) => {
+  const handleChangeInternal = e => {
     const { value } = e?.target
     setValue(value)
 
     if (handleChange) handleChange(value)
   }
-
 
   return (
     <StyledTextArea

@@ -20,7 +20,8 @@ const StyledButton = styled.button`
   margin-left: ${props => props.ml || props.marginLeft || props.mx};
   margin-top: ${props => props.mt || props.marginTop || props.my};
   margin-right: ${props => props.mr || props.marginRight || props.mx};
-  margin-bottom: ${props => props.mb || props.marginBottom || props.my};
+  margin-bottom: ${props =>
+    props.mb || props.marginBottom || props.my};
 
   :disabled {
     cursor: not-allowed;

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled, { css } from 'styled-components'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory } from 'react-router-dom'
 import Flex from './Flex'
 import Logo from './Logo'
 import UserMenu from './UserMenu'
@@ -14,7 +14,7 @@ const sharedNavStyles = css`
   :hover {
     cursor: pointer;
     color: ${props => props.theme.colors.dolphinsBlue};
-  };
+  }
 `
 
 const Container = styled(Flex)`
@@ -49,17 +49,21 @@ const UserImage = styled('img')`
 `
 
 const Header = () => {
+  const history = useHistory()
   const [menuActive, setMenuActive] = useState(false)
   const { user, setUser } = useContext(AuthContext)
-  const signInUser = () => signIn({
-    onComplete: setUser,
-    onError: alert,
-  })
+  const onComplete = userData => {
+    setUser(userData)
+    history.push('/my-pools')
+  }
+  const signInUser = () =>
+    signIn({
+      onComplete,
+      onError: alert,
+    })
 
   return (
-    <Container
-      backgroundColor="dolphinsTeal"
-    >
+    <Container backgroundColor="dolphinsTeal">
       <Flex
         height="100%"
         alignItems="center"
@@ -72,20 +76,13 @@ const Header = () => {
         </Nav>
         {user && (
           <Flex>
-            <Nav to={`/${user.id}/my-pools`}>
-              My Pools
-            </Nav>
-            <Nav to="/new-pool">
-              New Pool
-            </Nav>
+            <Nav to={`/my-pools`}>My Pools</Nav>
+            <Nav to="/new-pool">New Pool</Nav>
           </Flex>
         )}
       </Flex>
-      <Flex
-        height="100%"
-        position="relative"
-      >
-        {(user && user.photo) ? (
+      <Flex height="100%" position="relative">
+        {user && user.photo ? (
           <>
             <UserImage
               src={user?.photo}
@@ -95,10 +92,8 @@ const Header = () => {
             {menuActive && <UserMenu />}
           </>
         ) : (
-            <SignIn onClick={signInUser}>
-              Sign In
-            </SignIn>
-          )}
+          <SignIn onClick={signInUser}>Sign In</SignIn>
+        )}
       </Flex>
     </Container>
   )

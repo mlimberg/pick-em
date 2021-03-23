@@ -5,7 +5,6 @@ import Flex from '../components/Flex'
 import nfl_teams from '../data/nfl_teams'
 
 const Teams = () => {
-
   return (
     <Container>
       {nfl_teams.map(t => (

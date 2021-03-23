@@ -6,12 +6,15 @@ export const storageKey = 'pickem-user'
 export const signIn = ({ onComplete, onError }) => {
   const provider = new firebase.auth.GoogleAuthProvider()
 
-  firebase.auth()
+  firebase
+    .auth()
     .signInWithPopup(provider)
-    .then((result) => {
+    .then(result => {
       console.log('RESLUT', result)
       if (result && result.user) {
-        const { user: { uid, photoURL, email, displayName } } = result
+        const {
+          user: { uid, photoURL, email, displayName },
+        } = result
 
         const userData = {
           id: uid,
@@ -24,7 +27,8 @@ export const signIn = ({ onComplete, onError }) => {
 
         ls.set(storageKey, userData)
       }
-    }).catch((error) => {
+    })
+    .catch(error => {
       if (error && error.message) {
         onError(error.message)
       }
@@ -32,10 +36,14 @@ export const signIn = ({ onComplete, onError }) => {
 }
 
 export const signOut = ({ onComplete }) => {
-  firebase.auth().signOut().then((res) => {
-    ls.remove(storageKey)
-    onComplete()
-  }).catch((error) => {
-    alert('WAT?!')
-  })
+  firebase
+    .auth()
+    .signOut()
+    .then(res => {
+      ls.remove(storageKey)
+      onComplete()
+    })
+    .catch(error => {
+      alert('WAT?!')
+    })
 }

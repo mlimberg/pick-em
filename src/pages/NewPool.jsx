@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import firebase from 'firebase'
 import PageWrapper from '../components/PageWrapper'
 import Input from '../components/Input'
@@ -10,6 +11,7 @@ import { AuthContext } from '../context/AuthContext'
 import { getUsername } from '../utils/userHelpers'
 
 const NewPool = () => {
+  const history = useHistory()
   const [poolName, setPoolName] = useState('')
   const [emailList, setEmailList] = useState('')
   const [nameExists, setNameExists] = useState(false)
@@ -24,41 +26,50 @@ const NewPool = () => {
       emailList.split(',').forEach(em => members.push(em))
     }
 
-    db.ref(poolName).set({
+    const newPoolData = {
       id,
       name: poolName,
-      members
-    });
+      members,
+      lastUpdate: id,
+    }
+
+    db.ref(`pools/${id}`).set(newPoolData)
 
     members.forEach(email => {
       const username = getUsername(email)
       const userPoolRef = db.ref(`/users/${username}/pools`)
-      userPoolRef.once('value', data => {
-        const newPool = { name: poolName, id }
-        const currentPools = data.val()
 
-        if (currentPools) {
-          userPoolRef.set([...currentPools, newPool])
-        } else {
-          userPoolRef.set([newPool])
-        }
-      })
+      userPoolRef
+        .once('value', data => {
+          const currentPools = data.val()
+
+          if (currentPools) {
+            userPoolRef.set([...currentPools, newPoolData])
+          } else {
+            userPoolRef.set([newPoolData])
+          }
+        })
+        .then(() => history.push(`current-pool/${id}`))
     })
   }
 
   const onSubmit = () => {
-    db.ref(poolName).once('value', data => {
-      const pool = data.val()
+    const username = getUsername(user.email)
 
-      if (pool && pool.id) {
+    db.ref(`users/${username}`).once('value', data => {
+      const pools = data?.val()?.pools
+      const poolExists =
+        pools && pools.length
+          ? pools.find(p => p.name === poolName)
+          : false
+
+      if (poolExists && poolExists.id) {
         setNameExists(true)
       } else {
         addPool()
       }
     })
   }
-
-  console.log('stuff ', { poolName, emailList })
 
   return (
     <PageWrapper
@@ -73,23 +84,19 @@ const NewPool = () => {
         flexDirection="column"
       >
         {nameExists && (
-          <Text
-            fontSize="18px"
-            color="error"
-            mb="8px"
-          >
+          <Text fontSize="18px" color="error" mb="8px">
             Name Exists! Choose another name.
           </Text>
         )}
         <Input
-          handleChange={(val) => {
+          handleChange={val => {
             setPoolName(val.toUpperCase())
             setNameExists(false)
           }}
           placeholder="Name"
           mb="8px"
           error={nameExists}
-          modifyText={(v) => v.toUpperCase()}
+          modifyText={v => v.toUpperCase()}
         />
         <TextArea
           handleChange={setEmailList}

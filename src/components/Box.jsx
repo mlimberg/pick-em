@@ -1,11 +1,15 @@
-import styled from "styled-components"
-import { margin, padding, absolutePositions } from '../styles/sharedStyles'
+import styled from 'styled-components'
+import {
+  margin,
+  padding,
+  absolutePositions,
+} from '../styles/sharedStyles'
 
-const Box = styled("div")`
+const Box = styled('div')`
   ${margin}
   ${padding}
   ${absolutePositions}
-  display: ${props => props.display || "block"};
+  display: ${props => props.display || 'block'};
   width: ${props => props.width};
   height: ${props => props.height};
   min-height: ${props => props.minHeight};
@@ -23,7 +27,8 @@ const Box = styled("div")`
   background: ${props => props.background};
   position: ${props => props.position};
 
-  background-color: ${props => props.theme.colors[props.backgroundColor]};
-`;
+  background-color: ${props =>
+    props.theme.colors[props.backgroundColor]};
+`
 
-export default Box;
+export default Box

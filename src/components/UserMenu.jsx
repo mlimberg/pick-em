@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import Box from './Box'
 import Text from './Text'
@@ -15,8 +16,12 @@ const MenuItem = styled(Box)`
 `
 
 const UserMenu = ({ onSignOut }) => {
+  const history = useHistory()
   const { setUser } = useContext(AuthContext)
-  const onComplete = () => setUser(null)
+  const onComplete = () => {
+    setUser(null)
+    history.push('/')
+  }
 
   return (
     <Box
@@ -28,9 +33,7 @@ const UserMenu = ({ onSignOut }) => {
       right="0"
       top="5rem"
     >
-      <MenuItem
-        onClick={() => signOut({ onComplete })}
-      >
+      <MenuItem onClick={() => signOut({ onComplete })}>
         <Text>Sign Out</Text>
       </MenuItem>
     </Box>

@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import Box from "./Box";
+import styled from 'styled-components'
+import Box from './Box'
 
 const Flex = styled(Box)`
-  display: ${props => props.display || "flex"};
+  display: ${props => props.display || 'flex'};
   justify-content: ${props => props.justifyContent || 'center'};
   align-items: ${props => props.alignItems || 'center'};
   align-self: ${props => props.alignSelf};
@@ -10,6 +10,6 @@ const Flex = styled(Box)`
   flex-wrap: ${props => props.flexWrap};
   flex: ${props => props.flex};
   flex-grow: ${props => props.flexGrow};
-`;
+`
 
-export default Flex;
+export default Flex

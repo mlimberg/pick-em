@@ -11,13 +11,8 @@ const StyledForm = styled.form`
   padding: 16px;
 `
 
-const Form = ({
-  children,
-  handleSubmit,
-  ...rest
-}) => {
-
-  const onSubmit = (e) => {
+const Form = ({ children, handleSubmit, ...rest }) => {
+  const onSubmit = e => {
     e.preventDefault()
     console.log('hit hit hit')
 
@@ -27,10 +22,7 @@ const Form = ({
   }
 
   return (
-    <StyledForm
-      onSubmit={onSubmit}
-      {...rest}
-    >
+    <StyledForm onSubmit={onSubmit} {...rest}>
       {children}
     </StyledForm>
   )

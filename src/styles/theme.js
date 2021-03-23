@@ -14,14 +14,14 @@ const theme = {
     dolphinsOrange: '#FC4C02',
     dolphinsBlue: '#041E42',
     vikingsPurple: '#4F2683',
-    vikingsGold: '#FFC62F'
+    vikingsGold: '#FFC62F',
   },
   fonts: {
     thin: 'Roboto Thin, sans-serif',
     thinItalic: 'Roboto Thin Italic, sans-serif',
     regular: 'Roboto Regular, sans-serif',
     bold: 'Roboto Bold, sans-serif',
-  }
+  },
 }
 
 export default theme
